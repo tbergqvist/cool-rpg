@@ -1,0 +1,72 @@
+#rat-guy {
+  width: 100%;
+  height: 100%;
+  background-image: url("../img/rat-guy.jpg");
+}
+
+#village {
+  width: 100%;
+  height: 100%;
+  background-image: url("../img/village.jpg");
+  background-size: 100% 100%;
+}
+
+#basement {
+  width: 100%;
+  height: 100%;
+  background-image: url("../img/rat.jpg");
+  background-size: 100% 100%;
+}
+
+.quest-target {
+  position: absolute;
+  top: 500px;
+  left: 0px;
+  height: 180px;
+  width: 230px;
+  cursor: pointer;
+  border: yellow solid 5px;
+}
+
+.quest-target2 {
+  position: absolute;
+  top: 500px;
+  left: 200px;
+  height: 170px;
+  width: 230px;
+  cursor: pointer;
+  border: yellow solid 5px;
+}
+
+.main {
+  position: relative;
+  margin: auto auto;
+  width: 1024px;
+  height: 678px;
+}
+
+.dialog-bar {
+  background-color: green;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+.dialog-responses {
+  list-style: none;
+}
+
+.quests-popup {
+  width: 100%;
+  top: 100px;
+  position: absolute;
+}
+
+.popup-content {
+  margin: auto auto;
+  width: 800px;
+  height: 800px;
+  
+  background-color: #eeeeee;
+  border: black solid 1px;
+}
