@@ -16,6 +16,7 @@ export const QuestsPopupView = observer(
               </li>
             ))}
           </ul>
+          <button onClick={()=>system.closePopup()}>Close</button>
         </div>
       </div>
     );

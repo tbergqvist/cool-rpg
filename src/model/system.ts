@@ -56,6 +56,11 @@ export class System {
     this.setCurrentPopup({component: QuestsPopupView, parameters: {system: this}});
   }
 
+  @action
+  closePopup() {
+    this._currentPopup = undefined;
+  }
+
   @computed
   get currentRoute() {
     return this._currentRoute;
