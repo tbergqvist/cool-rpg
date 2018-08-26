@@ -70,3 +70,13 @@
   background-color: #eeeeee;
   border: black solid 1px;
 }
+
+.status-view-section {
+  display: inline-block;
+  margin-right: 20px;
+}
+
+a {
+  color: blue;
+  cursor: pointer;
+}

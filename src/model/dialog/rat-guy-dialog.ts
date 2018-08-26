@@ -11,6 +11,11 @@ export function ratGuyDialog(system: System, ratQuest: RatQuest): () => DialogMe
         return questNotStarted();
       case RatQuestState.Started:
         return questStarted();
+      case RatQuestState.RatKilled:
+      case RatQuestState.RatLeft:
+        return giveReward();
+      case RatQuestState.Finished:
+        return questFinished();
       default:
         return message("Nice", [byeMessage]);
     }
@@ -33,6 +38,23 @@ export function ratGuyDialog(system: System, ratQuest: RatQuest): () => DialogMe
   function questStarted() {
     return message(
       "Please go to my basement and deal with the rats!", [
+        byeMessage
+      ]
+    );
+  }
+
+  function giveReward() {
+    ratQuest.finish();
+    return message(
+      "Thanks man, here's your reward!", [
+        byeMessage
+      ]
+    );
+  }
+
+  function questFinished() {
+    return message(
+      "Thanks again for helping me with the rat!", [
         byeMessage
       ]
     );

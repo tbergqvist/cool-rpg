@@ -6,8 +6,8 @@ import { CreateHeroFormData, CreateHeroForm } from "./create-hero-form";
 
 export const CreateHeroView = observer(
   ({system}: {system: System}) => {
-    function createClicked() {
-      system.createHero();
+    function createClicked(formData: CreateHeroFormData) {
+      system.createHero(formData.name);
     }
 
     return (

@@ -9,18 +9,23 @@ import { BasementView } from "../view/routes/basement-view";
 import { DialogController } from "./dialog/dialog-controller";
 import { ratGuyDialog } from "./dialog/rat-guy-dialog";
 import { ratDialog } from "./dialog/rat-dialog";
+import { Wallet } from "./wallet";
+import { Hero } from "./hero";
 
 export class System {
   @observable private _currentRoute: Route<any>;
   @observable private _currentPopup: Route<any> | undefined;
-  @observable private _quests: Quests = new Quests();
+  @observable private _wallet = new Wallet();
+  @observable private _quests = new Quests(this._wallet);
+  @observable private _hero: Hero | undefined; //TODO: remove undefined somehow
 
   constructor() {
     this._currentRoute = {component: CreateHeroView, parameters: {system: this}};
   }
 
   @action
-  createHero() {
+  createHero(name: string) {
+    this._hero = new Hero(name);
     this.setCurrentRoute({component: VillageView, parameters: {system: this}});
   }
 
@@ -74,5 +79,15 @@ export class System {
   @computed
   get quests() {
     return this._quests;
+  }
+
+  @computed
+  get wallet() {
+    return this._wallet;
+  }
+
+  @computed
+  get hero() {
+    return this._hero;
   }
 }
