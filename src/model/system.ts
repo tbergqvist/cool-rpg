@@ -6,6 +6,9 @@ import { Route } from "./route";
 import { QuestsPopupView } from "../view/popups/quests-popup-view";
 import { Quests } from "./quests/quests";
 import { BasementView } from "../view/routes/basement-view";
+import { DialogController } from "./dialog/dialog-controller";
+import { ratGuyDialog } from "./dialog/rat-guy-dialog";
+import { ratDialog } from "./dialog/rat-dialog";
 
 export class System {
   @observable private _currentRoute: Route<any>;
@@ -33,12 +36,14 @@ export class System {
 
   @action
   gotoRatGuy() {
-    this.setCurrentRoute({component: RatGuyView, parameters: {system: this}});
+    let dialogController = new DialogController(ratGuyDialog(this, this.quests.ratQuest));
+    this.setCurrentRoute({component: RatGuyView, parameters: {dialogController}});
   }
 
   @action
   gotoBasement() {
-    this.setCurrentRoute({component: BasementView, parameters: {system: this}});
+    let dialogController = new DialogController(ratDialog(this, this.quests.ratQuest));
+    this.setCurrentRoute({component: BasementView, parameters: {dialogController}});
   }
 
   @action

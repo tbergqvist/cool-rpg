@@ -1,34 +1,14 @@
 import * as React from "react";
 import { observer } from "mobx-react";
 
-import { System } from "../../model/system";
+import { DialogView } from "./dialog-view";
+import { DialogController } from "../../model/dialog/dialog-controller";
 
 export const BasementView = observer(
-  ({system}: {system: System}) => {
-
-    function onKillRatClicked() {
-      system.quests.ratQuest.killRat();
-      system.gotoVillage();
-    }
-
-    function onAskRatToLeaveClicked() {
-      system.quests.ratQuest.letRatLeave();
-      system.gotoVillage();
-    }
-
+  ({dialogController}: {dialogController: DialogController}) => {
     return (
       <div id="basement">
-      <div className="dialog-bar">
-          WOOO
-          <ul className="dialog-responses">
-            <li onClick={onKillRatClicked}>
-              Kill rat
-            </li>
-            <li onClick={onAskRatToLeaveClicked}>
-              Ask rat to kindly leave
-            </li>
-          </ul>
-        </div>
+        <DialogView dialog={dialogController}/>
       </div>
     );
   }
