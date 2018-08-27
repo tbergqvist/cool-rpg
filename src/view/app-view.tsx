@@ -9,8 +9,8 @@ export const AppView = observer(
   ({system}: {system: System}) => {
     return (
       <div className="main">
-        <RouteView route={system.currentRoute}/>
-        <RouteView route={system.currentPopup}/>
+        <RouteView route={system.currentRoute()}/>
+        <RouteView route={system.currentPopup()}/>
       </div>
     );
   }

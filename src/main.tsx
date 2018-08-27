@@ -3,8 +3,9 @@ import * as ReactDom from "react-dom";
 
 import { System } from "./model/system";
 import { AppView } from "./view/app-view";
+import { getGameModel } from "./model/model";
 
-let system = new System();
+let system = new System(getGameModel());
 
 function render() {
   ReactDom.render(
