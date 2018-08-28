@@ -1,17 +1,18 @@
-import { observable, computed } from "mobx";
+import { computed } from "mobx";
+import { HeroModel } from "./model";
 
 export class Hero {
-  @observable
-  private _name: string;
-
   constructor(
-    name: string
+    private _model: HeroModel
   ) {
-    this._name = name;
+  }
+
+  init(name: string) {
+    this._model.name = name;
   }
 
   @computed
   get name() {
-    return this._name;
+    return this._model.name;
   }
 }

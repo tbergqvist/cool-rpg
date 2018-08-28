@@ -2,8 +2,8 @@ import * as React from "react";
 import { observer } from "mobx-react";
 
 import { System } from "../../model/system";
-import { RatQuestState } from "../../model/quests/rat-quest";
 import { StatusView } from "../status-view";
+import { RatQuestState } from "../../model/model";
 
 export const VillageView = observer(
   ({system}: {system: System}) => {

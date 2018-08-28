@@ -1,15 +1,19 @@
-import { observable, computed, action } from "mobx";
+import { computed, action } from "mobx";
+import { WalletModel } from "./model";
 
 export class Wallet {
-  @observable private _money: number = 0;
+  constructor(
+    private _model: WalletModel
+  ) {
+  }
 
   @action
   addMoney(amount: number) {
-    this._money += amount;
+    this._model.amount += amount;
   }
 
   @computed
   get money() {
-    return this._money;
+    return this._model.amount;
   }
 }

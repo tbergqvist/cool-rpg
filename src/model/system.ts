@@ -32,22 +32,31 @@ let popups = {
 };
 
 export class System {
-  @observable private _wallet = new Wallet();
-  @observable private _quests = new Quests(this._wallet);
-  @observable private _hero: Hero | undefined; //TODO: remove undefined somehow
+  @observable private _wallet = new Wallet(this._model.wallet);
+  @observable private _quests = new Quests(this._model, this._wallet);
+  @observable private _hero = new Hero(this._model.hero);
 
   constructor(
     private _model: GameModel
   ) {
+    document.addEventListener("keydown", (e)=> {
+      if (e.ctrlKey && e.keyCode === 83) {
+        localStorage.setItem("gameState", JSON.stringify(this._model));
+        e.preventDefault();
+      }
+    });
   }
 
   @computed
   get currentRoute() {
+    console.log("hallå????");
     return ()=>routes[this._model.currentRoute](this);
   }
 
+  @action
   createHero(name: string) {
-    this._hero = new Hero(name);
+    console.log("hallå?");
+    this._hero.init(name);
     this.gotoVillage();
   }
 
@@ -58,7 +67,6 @@ export class System {
   @action
   gotoBasement() {
     this._model.currentRoute = "basementView";
-    localStorage.setItem("gameState", JSON.stringify(this._model));
   }
 
   @action

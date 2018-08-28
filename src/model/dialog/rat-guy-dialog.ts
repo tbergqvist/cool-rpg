@@ -1,6 +1,7 @@
-import { RatQuest, RatQuestState } from "../quests/rat-quest";
+import { RatQuest } from "../quests/rat-quest";
 import { System } from "../system";
 import { DialogMessage, message, DialogResponseTuple } from "./dialog-controller";
+import { RatQuestState } from "../model";
 
 export function ratGuyDialog(system: System, ratQuest: RatQuest): () => DialogMessage {
   const byeMessage: DialogResponseTuple = ["Bye", () => system.gotoVillage() || undefined];

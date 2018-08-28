@@ -1,52 +1,45 @@
 import { Quest } from "./quest";
-import { observable, action, computed } from "mobx";
+import { action, computed } from "mobx";
 import { Wallet } from "../wallet";
-
-export enum RatQuestState {
-  NotStarted,
-  Started,
-  RatKilled,
-  RatLeft,
-  Finished
-}
+import { RatQuestModel, RatQuestState } from "../model";
 
 export class RatQuest implements Quest {
   name = "Rat-man";
-  @observable private _state: RatQuestState = RatQuestState.NotStarted;
   
   constructor(
+    private _model: RatQuestModel,
     private _wallet: Wallet
   ) {
   }
 
   @computed
   get started() {
-    return this._state !== RatQuestState.NotStarted;
+    return this._model.state !== RatQuestState.NotStarted;
   }
 
   @action
   start() {
-    this._state = RatQuestState.Started;
+    this._model.state = RatQuestState.Started;
   }
 
   @action
   finish() {
-    this._state = RatQuestState.Finished;
+    this._model.state = RatQuestState.Finished;
     this._wallet.addMoney(20);
   }
 
   @action
   killRat() {
-    this._state = RatQuestState.RatKilled;
+    this._model.state = RatQuestState.RatKilled;
   }
 
   @action
   letRatLeave() {
-    this._state = RatQuestState.RatLeft;
+    this._model.state = RatQuestState.RatLeft;
   }
 
   @computed
   get state() {
-    return this._state;
+    return this._model.state;
   }
 }
