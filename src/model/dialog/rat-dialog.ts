@@ -3,7 +3,7 @@ import { System } from "../system";
 import { DialogMessage, DialogResponseTuple, message } from "./dialog-controller";
 
 export function ratDialog(system: System, ratQuest: RatQuest): () => DialogMessage {
-  const byeMessage: DialogResponseTuple = ["Bye", () => system.gotoVillage() || undefined];
+  const byeMessage: DialogResponseTuple = ["Bye", () => system.gotoVillage() || null];
 
   return () => message("Hi dude!", [
     ["(Kill rat)", killRat],

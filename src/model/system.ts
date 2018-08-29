@@ -40,8 +40,11 @@ export class System {
     private _model: GameModel
   ) {
     document.addEventListener("keydown", (e)=> {
-      if (e.ctrlKey && e.keyCode === 83) {
+      if (e.ctrlKey && e.keyCode === 83) { //S
         localStorage.setItem("gameState", JSON.stringify(this._model));
+        e.preventDefault();
+      } else if (e.ctrlKey && e.keyCode === 68) { //D 
+        localStorage.removeItem("gameState");
         e.preventDefault();
       }
     });
@@ -49,13 +52,11 @@ export class System {
 
   @computed
   get currentRoute() {
-    console.log("hallå????");
     return ()=>routes[this._model.currentRoute](this);
   }
 
   @action
   createHero(name: string) {
-    console.log("hallå?");
     this._hero.init(name);
     this.gotoVillage();
   }
@@ -81,17 +82,15 @@ export class System {
 
   @action
   closePopup() {
-    this._model.currentPopup = undefined;
+    this._model.currentPopup = null;
   }
 
   @computed
-  get currentPopup() {
-    let currentPopup = this._model.currentPopup;
-
-    if (currentPopup != undefined) {
-      return ()=>popups[currentPopup!](this);
+  get currentPopup(): any {
+    if (this._model.currentPopup != null) {
+      return ()=>popups[this._model.currentPopup!](this);
     } else {
-      return ()=>undefined;
+      return ()=>null;
     }
   }
 

@@ -4,8 +4,8 @@ import { observer } from "mobx-react";
 import { Route } from "../model/route";
 
 export const RouteView = observer(
-  ({route}: {route: Route<any> | undefined}) => {
-    if (route == undefined) {
+  ({route}: {route: Route<any> | null}) => {
+    if (route == null) {
       return null;
     }
 

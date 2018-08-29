@@ -23,7 +23,7 @@ export class RatQuestModel {
 export class GameModel {
   version = 1;
   currentRoute: RouteKey = "createHeroView";
-  currentPopup: (PopupKey | undefined) = undefined;
+  currentPopup: (PopupKey | null) = null;
   
   wallet = new WalletModel();
   hero = new HeroModel();

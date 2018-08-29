@@ -15,10 +15,10 @@ export const VillageView = observer(
     function onBasementClicked() {
       system.gotoBasement();
     }
-
+    
     return (
       <div style={{width: "100%", height: "100%"}}>
-        <StatusView system={system} wallet={system.wallet} hero={system.hero!}/>
+        <StatusView system={system} wallet={system.wallet} hero={system.hero}/>
         <div id="village">
         {system.quests.ratQuest.state === RatQuestState.Started ? 
           <div className="quest-target2" onClick={onBasementClicked}></div>

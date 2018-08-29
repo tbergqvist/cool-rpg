@@ -2,7 +2,7 @@ import { computed, observable, action } from "mobx";
 
 interface DialogResponse {
   message: string;
-  callback(): DialogMessage | undefined;
+  callback(): DialogMessage | null;
 }
 
 export interface DialogMessage {
@@ -10,7 +10,7 @@ export interface DialogMessage {
   responses: DialogResponse[];
 }
 
-export type DialogResponseTuple = [string, () => DialogMessage | undefined];
+export type DialogResponseTuple = [string, () => DialogMessage | null];
 
 export function message(message: string, responses: DialogResponseTuple[]): DialogMessage {
   return { message, responses: responses.map(t => ({ message: t[0], callback: t[1] })) };
@@ -27,7 +27,7 @@ export class DialogController {
   }
 
   @action
-  private next(getDialog: () => (DialogMessage | undefined)) {
+  private next(getDialog: () => (DialogMessage | null)) {
     let value = getDialog();
     if (!value) {
       this._message = "";
