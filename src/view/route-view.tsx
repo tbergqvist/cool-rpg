@@ -1,7 +1,7 @@
 import * as React from "react";
 import { observer } from "mobx-react";
 
-import { Route } from "../model/route";
+import { Route } from "../model/router";
 
 export const RouteView = observer(
   ({route}: {route: Route<any> | null}) => {

@@ -4,7 +4,7 @@ import { DialogMessage, message, DialogResponseTuple } from "./dialog-controller
 import { RatQuestState } from "../model";
 
 export function ratGuyDialog(system: System, ratQuest: RatQuest): () => DialogMessage {
-  const byeMessage: DialogResponseTuple = ["Bye", () => system.gotoVillage() || null];
+  const byeMessage: DialogResponseTuple = ["Bye", () => system.router.gotoVillage() || null];
 
   return () => {
     switch (ratQuest.state) {
@@ -61,4 +61,3 @@ export function ratGuyDialog(system: System, ratQuest: RatQuest): () => DialogMe
     );
   }
 }
-

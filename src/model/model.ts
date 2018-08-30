@@ -1,5 +1,6 @@
-import { RouteKey, PopupKey } from "./system";
+import { PopupKey } from "./system";
 import { observable } from "mobx";
+import { RouteKey } from "./router";
 
 export class HeroModel {
   name = "";
@@ -20,9 +21,14 @@ export class RatQuestModel {
   state = RatQuestState.NotStarted;
 }
 
+export class RouterModel {
+  key: RouteKey = "createHeroView";
+  parameters?: any;
+}
+
 export class GameModel {
   version = 1;
-  currentRoute: RouteKey = "createHeroView";
+  currentRoute: RouterModel = new RouterModel();
   currentPopup: (PopupKey | null) = null;
   
   wallet = new WalletModel();

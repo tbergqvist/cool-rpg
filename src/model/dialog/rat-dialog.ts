@@ -3,23 +3,24 @@ import { System } from "../system";
 import { DialogMessage, DialogResponseTuple, message } from "./dialog-controller";
 
 export function ratDialog(system: System, ratQuest: RatQuest): () => DialogMessage {
-  const byeMessage: DialogResponseTuple = ["Bye", () => system.gotoVillage() || null];
+  const byeMessage: DialogResponseTuple = ["Bye", () => system.router.gotoVillage() || null];
 
   return () => message("Hi dude!", [
-    ["(Kill rat)", killRat],
+    ["Die monster! (Attack rat)", attackRat],
     ["Please leave, Mr Rat", leaveRat],
     byeMessage,
   ]);
 
-  function killRat() {
+  function attackRat() {
+    //system.startFight({ hp: 100 });
     ratQuest.killRat();
-    system.gotoVillage();
+    system.router.gotoVillage();
     return message("WAAAAAA!!! (rat dies horribly)", [byeMessage]);
   }
 
   function leaveRat() {
     system.quests.ratQuest.letRatLeave();
-    system.gotoVillage();
+    system.router.gotoVillage();
     return message("Cheers mate!", [byeMessage]);
   }
 }

@@ -9,11 +9,11 @@ export const VillageView = observer(
   ({system}: {system: System}) => {
 
     function onQuestClicked() {
-      system.gotoRatGuy();
+      system.router.gotoRatGuy();
     }
 
     function onBasementClicked() {
-      system.gotoBasement();
+      system.router.gotoBasement();
     }
     
     return (
