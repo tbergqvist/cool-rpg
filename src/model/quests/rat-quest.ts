@@ -1,14 +1,14 @@
 import { Quest } from "./quest";
 import { action, computed } from "mobx";
-import { Wallet } from "../wallet";
 import { RatQuestModel, RatQuestState } from "../model";
+import { System } from "../system";
 
 export class RatQuest implements Quest {
   name = "Rat-man";
   
   constructor(
     private _model: RatQuestModel,
-    private _wallet: Wallet
+    private _system: System
   ) {
   }
 
@@ -23,14 +23,23 @@ export class RatQuest implements Quest {
   }
 
   @action
+  startFight() {
+    this._model.state = RatQuestState.FightStarted;
+    this._system.router.startFight({hp: 2}, (system: System) => {
+      system.quests.ratQuest.killRat();
+    });
+  }
+
+  @action
   finish() {
     this._model.state = RatQuestState.Finished;
-    this._wallet.addMoney(20);
+    this._system.wallet.addMoney(20);
   }
 
   @action
   killRat() {
     this._model.state = RatQuestState.RatKilled;
+    this._system.router.gotoVillage();
   }
 
   @action

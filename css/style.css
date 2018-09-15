@@ -18,6 +18,14 @@
   background-size: 100% 100%;
 }
 
+
+#fight {
+  width: 100%;
+  height: 100%;
+  background-image: url("../img/rat.jpg");
+  background-size: 100% 100%;
+}
+
 .quest-target {
   position: absolute;
   top: 500px;

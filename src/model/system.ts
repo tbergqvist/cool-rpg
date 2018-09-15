@@ -7,6 +7,8 @@ import { Wallet } from "./wallet";
 import { Hero } from "./hero";
 import { GameModel } from "./model";
 import { Router } from "./router";
+import { Logger } from "../log";
+import { LocalStorage } from "./localstorage";
 
 export type PopupKey = keyof typeof popups;
 let popups = {
@@ -15,7 +17,7 @@ let popups = {
 
 export class System {
   @observable private _wallet = new Wallet(this._model.wallet);
-  @observable private _quests = new Quests(this._model, this._wallet);
+  @observable private _quests = new Quests(this._model, this);
   @observable private _hero = new Hero(this._model.hero);
   @observable private _router = new Router(this, this._model.currentRoute);
 
@@ -24,12 +26,16 @@ export class System {
   ) {
     document.addEventListener("keydown", (e)=> {
       if (e.ctrlKey && e.keyCode === 83) { //S
-        localStorage.setItem("gameState", JSON.stringify(this._model));
+        LocalStorage.saveGameModel(this._model);
         e.preventDefault();
       } else if (e.ctrlKey && e.keyCode === 68) { //D 
         localStorage.removeItem("gameState");
         e.preventDefault();
+      } else if (e.ctrlKey && e.keyCode === 81) { //Q
+        Logger.log(_model);
+        e.preventDefault();
       }
+      //console.log(e.keyCode);
     });
   }
 

@@ -1,4 +1,4 @@
-import { action, computed } from "mobx";
+import { action, computed, set } from "mobx";
 
 import { RouterModel } from "./model";
 
@@ -11,6 +11,8 @@ import { CreateHeroView } from "../view/create-hero-view";
 import { VillageView } from "../view/routes/village-view";
 import { RatGuyView } from "../view/routes/rat-guy-view";
 import { System } from "./system";
+import { FightView } from "../view/routes/fight-view";
+import { FightModel, Fight } from "./fight";
 
 export interface Route<T> {
   component: (params: T) => JSX.Element;
@@ -19,15 +21,23 @@ export interface Route<T> {
 
 export type RouteKey = keyof typeof routes;
 let routes = {
-  "createHeroView": (system: System) => ({ component: CreateHeroView, parameters: { system } }),
-  "villageView": (system: System) => ({ component: VillageView, parameters: { system } }),
-  "basementView": (system: System) => {
+  "createHeroView": (system: System): Route<ParameterType<typeof CreateHeroView>> => (
+    { component: CreateHeroView, parameters: { system } }
+  ),
+  "villageView": (system: System): Route<ParameterType<typeof VillageView>> => (
+    { component: VillageView, parameters: { system } }
+  ),
+  "basementView": (system: System): Route<ParameterType<typeof BasementView>> => {
     let dialogController = new DialogController(ratDialog(system, system.quests.ratQuest));
     return { component: BasementView, parameters: { dialogController } };
   },
-  "ratGuyView": (system: System) => {
+  "ratGuyView": (system: System): Route<ParameterType<typeof RatGuyView>> => {
     let dialogController = new DialogController(ratGuyDialog(system, system.quests.ratQuest));
     return { component: RatGuyView, parameters: { dialogController } };
+  },
+  "fightView": (system: System, parameters: FightModel): Route<ParameterType<typeof FightView>> => {
+    let fight = new Fight(parameters, system);
+    return { component: FightView, parameters: { fight } };
   },
 };
 
@@ -38,6 +48,8 @@ type RouteParameterType<T extends RouteKey> =
       [T]
   ) : never
 ;
+
+type ParameterType<T extends Function> = T extends (p1: infer A) => JSX.Element ? A : never;
 
 export class Router {
   constructor(
@@ -54,7 +66,7 @@ export class Router {
 
   private setModel<T extends RouteKey>(parameters: RouteParameterType<T>) {
     this._model.key = parameters[0];
-    this._model.parameters = parameters[1];
+    set(this._model, {parameters: parameters[1]});
   }
 
   @action
@@ -70,5 +82,15 @@ export class Router {
   @action
   gotoVillage() {
     this.setModel(["villageView"]);
+  }
+
+  @action
+  goto<T extends RouteKey>(key: T) {
+    this.setModel([<any>key]);
+  }
+  
+  @action
+  startFight(enemy: {hp: number}, func: (system: System)=>void) {
+    this.setModel(["fightView", {enemy, onFightFinished: func}]);
   }
 }

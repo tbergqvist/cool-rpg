@@ -14,7 +14,7 @@ export function ratGuyDialog(system: System, ratQuest: RatQuest): () => DialogMe
         return questStarted();
       case RatQuestState.RatKilled:
       case RatQuestState.RatLeft:
-        return giveReward();
+        return ratsDefeated();
       case RatQuestState.Finished:
         return questFinished();
       default:
@@ -44,7 +44,15 @@ export function ratGuyDialog(system: System, ratQuest: RatQuest): () => DialogMe
     );
   }
 
-  function giveReward() {
+  function ratsDefeated(): DialogMessage {
+    return message(
+      "Did you deal with the rats?", [
+        ["Yup", finishQuest]
+      ]
+    );
+  }
+
+  function finishQuest() {
     ratQuest.finish();
     return message(
       "Thanks man, here's your reward!", [

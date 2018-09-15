@@ -1,5 +1,4 @@
 import { PopupKey } from "./system";
-import { observable } from "mobx";
 import { RouteKey } from "./router";
 
 export class HeroModel {
@@ -15,7 +14,8 @@ export enum RatQuestState {
   Started,
   RatKilled,
   RatLeft,
-  Finished
+  Finished,
+  FightStarted,
 }
 export class RatQuestModel {
   state = RatQuestState.NotStarted;
@@ -23,7 +23,7 @@ export class RatQuestModel {
 
 export class RouterModel {
   key: RouteKey = "createHeroView";
-  parameters?: any;
+  parameters?: any = null;
 }
 
 export class GameModel {
@@ -34,14 +34,4 @@ export class GameModel {
   wallet = new WalletModel();
   hero = new HeroModel();
   ratQuest = new RatQuestModel();
-}
-
-export function getGameModel() {
-  let savedState = localStorage.getItem("gameState");
-  if (!savedState) {
-    return observable(JSON.parse(JSON.stringify(new GameModel())));
-  } else {
-    let state: GameModel = observable(JSON.parse(savedState));
-    return state;
-  }
 }
