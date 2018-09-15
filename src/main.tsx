@@ -3,9 +3,9 @@ import * as ReactDom from "react-dom";
 
 import { System } from "./model/system";
 import { AppView } from "./view/app-view";
-import { getGameModel } from "./model/model";
+import { LocalStorage } from "./model/localstorage";
 
-let system = new System(getGameModel());
+let system = new System(LocalStorage.getGameModel());
 
 function render() {
   ReactDom.render(
