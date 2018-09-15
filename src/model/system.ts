@@ -7,7 +7,7 @@ import { Wallet } from "./wallet";
 import { Hero } from "./hero";
 import { GameModel } from "./model";
 import { Router } from "./router";
-import { Logger } from "../log";
+import { Logger } from "../logger";
 import { LocalStorage } from "./localstorage";
 
 export type PopupKey = keyof typeof popups;

@@ -1,9 +1,9 @@
-import { observable } from "mobx";
+import { observable, toJS } from "mobx";
 import { GameModel } from "./model";
 
 export namespace LocalStorage {
   function transform(target: any, transformer: (key: string, value: string) => {key: string, value: string}) {
-    if (target == null || typeof target !== "object") {
+    if (Array.isArray(target) || target == null || typeof target !== "object") {
       return target;
     }
 
@@ -53,6 +53,6 @@ export namespace LocalStorage {
   }
   
   export function saveGameModel(gameModel: GameModel) {
-    localStorage.setItem("gameState", stringify(gameModel));
+    localStorage.setItem("gameState", stringify(toJS(gameModel)));
   }
 }

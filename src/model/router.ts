@@ -13,6 +13,7 @@ import { RatGuyView } from "../view/routes/rat-guy-view";
 import { System } from "./system";
 import { FightView } from "../view/routes/fight-view";
 import { FightModel, Fight } from "./fight";
+import { EnemyId, Data } from "../data/enemies";
 
 export interface Route<T> {
   component: (params: T) => JSX.Element;
@@ -90,7 +91,8 @@ export class Router {
   }
   
   @action
-  startFight(enemy: {hp: number}, func: (system: System)=>void) {
-    this.setModel(["fightView", {enemy, onFightFinished: func}]);
+  startFight(enemyId: EnemyId, func: (system: System)=>void) {
+    let enemy = Data.getEnemy(enemyId);
+    this.setModel(["fightView", {enemy, onFightFinished: func, battleLog: []}]);
   }
 }

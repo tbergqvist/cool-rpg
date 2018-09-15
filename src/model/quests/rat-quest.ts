@@ -2,6 +2,7 @@ import { Quest } from "./quest";
 import { action, computed } from "mobx";
 import { RatQuestModel, RatQuestState } from "../model";
 import { System } from "../system";
+import { EnemyId } from "../../data/enemies";
 
 export class RatQuest implements Quest {
   name = "Rat-man";
@@ -25,7 +26,7 @@ export class RatQuest implements Quest {
   @action
   startFight() {
     this._model.state = RatQuestState.FightStarted;
-    this._system.router.startFight({hp: 2}, (system: System) => {
+    this._system.router.startFight(EnemyId.Rat, (system: System) => {
       system.quests.ratQuest.killRat();
     });
   }
